@@ -13,12 +13,17 @@ public class Character : MonoBehaviour
     private void Update()
     {
         Move();
+
+        if (Input.GetButton("Fire1"))
+        {
+            Attack();
+        }
     }
 
     // Move()
     void Move()
     {
-        Vector2 _moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Verticall")).normalized;
+        Vector2 _moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
 
         transform.Translate(_moveDir * moveSpeed * Time.deltaTime);
     }
@@ -27,14 +32,15 @@ public class Character : MonoBehaviour
     public void EquipWeapon(Weapon newWeapon)
     {
         curWeapon = newWeapon;
+        curWeapon.ResetTargets();
     }
 
     // Attack()
-    public void Attack(Character target)
+    public void Attack()
     {
         if (curWeapon == null) return;
 
-        curWeapon.Attack(target);
+        curWeapon.Attack();
     }
 
     // TakeDamage()

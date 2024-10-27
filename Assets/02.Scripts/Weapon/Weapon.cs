@@ -9,16 +9,32 @@ public abstract class Weapon : MonoBehaviour
     public int damage;
     public float attackDelay;
 
-    private IAttackStrategy _attackStrategy;
-
-    public Weapon(IAttackStrategy strategy)
-    {
-        _attackStrategy = strategy;
-    }
+    public Collider2D attackCollider;
+    protected List<Character> _targetList = new List<Character>();
 
     // Attack()
-    public void Attack(Character target)
+    public abstract void Attack();
+
+    public void ResetTargets()
     {
-        _attackStrategy.ExecuteAttack(target);
+        _targetList.Clear();
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Character _target = collision.GetComponent<Character>();
+
+        if (_target == null && _targetList.Contains(_target)) return;
+
+        _targetList.Add(_target);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Character _target = collision.GetComponent<Character>();
+
+        if (_target == null && !_targetList.Contains(_target)) return;
+
+        _targetList.Remove(_target);
     }
 }
