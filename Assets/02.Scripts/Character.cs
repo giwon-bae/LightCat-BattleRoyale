@@ -40,7 +40,7 @@ public class Character : MonoBehaviour
     {
         if (curWeapon == null) return;
 
-        curWeapon.Attack();
+        curWeapon.ExecuteAttack();
     }
 
     // TakeDamage()

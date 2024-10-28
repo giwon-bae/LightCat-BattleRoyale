@@ -8,11 +8,25 @@ public abstract class Weapon : MonoBehaviour
     // attackDelay
     public int damage;
     public float attackDelay;
+    private float _curCoolDown = 0f;
 
     public Collider2D attackCollider;
     protected List<Character> _targetList = new List<Character>();
 
+    private void Update()
+    {
+        if (_curCoolDown > 0) _curCoolDown -= Time.deltaTime;
+    }
+
     // Attack()
+    public void ExecuteAttack()
+    {
+        if (_curCoolDown > 0) return;
+
+        Attack();
+        _curCoolDown = attackDelay;
+    }
+
     public abstract void Attack();
 
     public void ResetTargets()
