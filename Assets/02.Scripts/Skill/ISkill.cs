@@ -4,8 +4,7 @@ using UnityEngine;
 
 public interface ISkill
 {
-    // ActiveSkill()
-    // etc...
+    void ActiveSkill(Character character);
 }
 
 // ActiveSkill

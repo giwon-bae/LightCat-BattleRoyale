@@ -9,6 +9,7 @@ public class Character : MonoBehaviour
     public int hp = 100;
 
     public Weapon curWeapon;
+    public ISkill curSkill = new TestSkill();
 
     private void Update()
     {
@@ -17,6 +18,10 @@ public class Character : MonoBehaviour
         if (Input.GetButton("Fire1"))
         {
             Attack();
+        }
+        if (Input.GetButton("Fire2"))
+        {
+            Skill();
         }
     }
 
@@ -41,6 +46,14 @@ public class Character : MonoBehaviour
         if (curWeapon == null) return;
 
         curWeapon.ExecuteAttack();
+    }
+
+    // Skill()
+    public void Skill()
+    {
+        if (curSkill == null) return;
+
+        curSkill.ActiveSkill(this);
     }
 
     // TakeDamage()
