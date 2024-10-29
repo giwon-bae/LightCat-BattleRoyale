@@ -11,7 +11,7 @@ public abstract class Weapon : MonoBehaviour
     private float _curCoolDown = 0f;
 
     public Collider2D attackCollider;
-    protected List<Character> _targetList = new List<Character>();
+    protected List<IAttackable> _targetList = new List<IAttackable>();
 
     private void Update()
     {

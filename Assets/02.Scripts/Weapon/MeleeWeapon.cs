@@ -15,7 +15,7 @@ public class MeleeWeapon : Weapon
         if (_targetList.Count == 0) return;
 
         Debug.Log("MeleeWeapon Attack");
-        foreach (Character target in _targetList)
+        foreach (IAttackable target in _targetList)
         {
             target.TakeDamage(damage);
         }

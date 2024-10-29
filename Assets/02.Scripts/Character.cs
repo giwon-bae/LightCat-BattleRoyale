@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, IAttackable
 {
     // stats
     public float moveSpeed = 5f;
@@ -60,6 +60,7 @@ public class Character : MonoBehaviour
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        Debug.Log("[Character] Take Damage: " + damage);
         if (hp <= 0)
         {
             // Die()
