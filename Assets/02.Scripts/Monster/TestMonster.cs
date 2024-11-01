@@ -9,7 +9,7 @@ public class TestMonster : Monster
         hp = 100;
         damage = 10;
         moveSpeed = 3f;
-        detectionRange = 5f;
+        detectionRange = 0f;
         attackRange = 2f;
         attackDelay = 2f;
     }
@@ -21,7 +21,7 @@ public class TestMonster : Monster
 
     public override void FindCharacter()
     {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 10f);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, detectionRange);
         float closestDistance = Mathf.Infinity;
         Character closestTarget = null;
 
