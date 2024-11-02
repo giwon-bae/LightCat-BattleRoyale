@@ -71,5 +71,8 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
+# Photon
+/Assets/Photon/Fusion/Resources/PhotonAppSettings.asset
+
 # etc
 .DS_Store
