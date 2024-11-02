@@ -5,6 +5,7 @@ using UnityEngine;
 public interface ISkill
 {
     void ActiveSkill(Character character);
+    void Upgrade();
 }
 
 // ActiveSkill

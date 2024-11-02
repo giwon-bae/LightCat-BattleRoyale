@@ -8,6 +8,10 @@ public class Character : MonoBehaviour, IAttackable
     public float moveSpeed = 5f;
     public int hp = 100;
 
+    public int level = 1;
+    public int curExp = 0;
+    public int maxExp = 100;
+
     public Weapon curWeapon;
     public ISkill curSkill = new TestSkill();
 
@@ -22,6 +26,12 @@ public class Character : MonoBehaviour, IAttackable
         if (Input.GetButton("Fire2"))
         {
             Skill();
+        }
+
+        // for test
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            LevelUp();
         }
     }
 
@@ -67,5 +77,43 @@ public class Character : MonoBehaviour, IAttackable
         }
     }
 
-    // etc...
+    public void GainExp(int amount)
+    {
+        curExp += amount;
+        if (curExp >= maxExp)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        level++;
+        curExp = 0;
+        maxExp += level * 100;
+        GameManager.Instance.ShowLevelUpUI();
+    }
+
+    // Upgrade()
+    public void Upgrade(UpgradeType type)
+    {
+        Debug.Log("Character Upgrade with " + type);
+        switch(type)
+        {
+            case UpgradeType.HP:
+                break;
+            case UpgradeType.DAMAGE:
+                break;
+            case UpgradeType.SPEED:
+                break;
+            case UpgradeType.WEAPON:
+                curWeapon.Upgrade();
+                break;
+            case UpgradeType.SKILL:
+                curSkill.Upgrade();
+                break;
+        }
+
+        GameManager.Instance.HideLevelUpUI();
+    }
 }

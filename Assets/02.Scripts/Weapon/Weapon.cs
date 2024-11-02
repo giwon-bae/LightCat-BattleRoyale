@@ -4,8 +4,9 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    // damage
-    // attackDelay
+    // stats
+    protected int _level = 1;
+
     public int damage;
     public float attackDelay;
     private float _curCoolDown = 0f;
@@ -28,6 +29,7 @@ public abstract class Weapon : MonoBehaviour
     }
 
     public abstract void Attack();
+    public abstract void Upgrade();
 
     public void ResetTargets()
     {

@@ -20,4 +20,10 @@ public class MeleeWeapon : Weapon
             target.TakeDamage(damage);
         }
     }
+
+    public override void Upgrade()
+    {
+        _level++;
+        Debug.Log("MeleeWeapon level is " + _level);
+    }
 }

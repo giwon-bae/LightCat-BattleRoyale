@@ -22,4 +22,10 @@ public class RangedWeapon : Weapon
         Debug.Log("RangedWeapon Attack");
         //Instantiate(projectilePrefab, transform.position, transform.rotation);
     }
+
+    public override void Upgrade()
+    {
+        _level++;
+        Debug.Log("RangedWeapon level is " + _level);
+    }
 }
