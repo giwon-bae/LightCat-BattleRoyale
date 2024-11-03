@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public class Character : MonoBehaviour, IAttackable
+public class Character : NetworkBehaviour, IAttackable
 {
     // stats
     public float moveSpeed = 5f;
@@ -17,7 +18,7 @@ public class Character : MonoBehaviour, IAttackable
 
     private void Update()
     {
-        Move();
+        //Move();
 
         if (Input.GetButton("Fire1"))
         {
@@ -35,12 +36,20 @@ public class Character : MonoBehaviour, IAttackable
         }
     }
 
-    // Move()
-    void Move()
+    public override void FixedUpdateNetwork()
     {
-        Vector2 _moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        if (GetInput(out NetworkInputData data))
+        {
+            Move(data.direction);
+        }
+    }
 
-        transform.Translate(_moveDir * moveSpeed * Time.deltaTime);
+    // Move()
+    void Move(Vector2 direction)
+    {
+        //Vector2 _moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+
+        transform.Translate(direction * moveSpeed * Runner.DeltaTime);
     }
 
     // EquipWeapon()
