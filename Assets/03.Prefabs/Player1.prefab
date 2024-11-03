@@ -108,6 +108,7 @@ GameObject:
   - component: {fileID: 7198900168547494558}
   - component: {fileID: 1475999098663895608}
   - component: {fileID: 8258957381492547628}
+  - component: {fileID: 4184468980536959346}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -124,7 +125,7 @@ Transform:
   m_GameObject: {fileID: 7093930446292982021}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.41, y: -0.12383, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -302,3 +303,20 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5106627036468683052}
+  - {fileID: 4184468980536959346}
+--- !u!114 &4184468980536959346
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7093930446292982021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0

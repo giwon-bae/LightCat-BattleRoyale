@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Fusion;
 
+[RequireComponent(typeof(NetworkTransform), typeof(Rigidbody2D), typeof(Collider2D))]
 public class Character : NetworkBehaviour, IAttackable
 {
     // stats
@@ -20,14 +21,14 @@ public class Character : NetworkBehaviour, IAttackable
     {
         //Move();
 
-        if (Input.GetButton("Fire1"))
-        {
-            Attack();
-        }
-        if (Input.GetButton("Fire2"))
-        {
-            Skill();
-        }
+        //if (Input.GetButton("Fire1"))
+        //{
+        //    Attack();
+        //}
+        //if (Input.GetButton("Fire2"))
+        //{
+        //    Skill();
+        //}
 
         // for test
         if (Input.GetKeyDown(KeyCode.Space))
@@ -41,6 +42,15 @@ public class Character : NetworkBehaviour, IAttackable
         if (GetInput(out NetworkInputData data))
         {
             Move(data.direction);
+
+            if (data.attackInput)
+            {
+                Attack();
+            }
+            if (data.skillInput)
+            {
+                Skill();
+            }
         }
     }
 

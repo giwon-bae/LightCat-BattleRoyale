@@ -65,9 +65,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnHostMigration(NetworkRunner runner, HostMigrationToken hostMigrationToken) { }
 
     public void OnInput(NetworkRunner runner, NetworkInput input) {
-        var data = new NetworkInputData();
-
-        data.direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        var data = new NetworkInputData
+        {
+            direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized,
+            attackInput = Input.GetButton("Fire1"),
+            skillInput = Input.GetButton("Fire2")
+        };
 
         input.Set(data);
     }
