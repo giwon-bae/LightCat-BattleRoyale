@@ -38,7 +38,7 @@ public abstract class Weapon : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Character _target = collision.GetComponent<Character>();
+        IAttackable _target = collision.GetComponent<IAttackable>();
 
         if (_target == null && _targetList.Contains(_target)) return;
 
@@ -47,7 +47,7 @@ public abstract class Weapon : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Character _target = collision.GetComponent<Character>();
+        IAttackable _target = collision.GetComponent<IAttackable>();
 
         if (_target == null && !_targetList.Contains(_target)) return;
 

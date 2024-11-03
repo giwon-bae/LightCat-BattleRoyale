@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 67278903}
   - component: {fileID: 67278902}
   - component: {fileID: 67278905}
+  - component: {fileID: 67278906}
+  - component: {fileID: 67278907}
   m_Layer: 6
   m_Name: Monster1
   m_TagString: Untagged
@@ -153,13 +155,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeb7be26107a47ee94c3ef4a8019bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  _hp: 0
   damage: 10
   moveSpeed: 3
   detectionRange: 0
   attackRange: 1
   attackDelay: 2
-  curTarget: {fileID: 0}
+  _curTarget: {fileID: 0}
 --- !u!212 &67278903
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -256,7 +258,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -272,6 +274,41 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &67278906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67278901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2289001842
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 67278902}
+  - {fileID: 67278907}
+--- !u!114 &67278907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67278901}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &192333176
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +369,8 @@ GameObject:
   - component: {fileID: 422822004}
   - component: {fileID: 422822003}
   - component: {fileID: 422822002}
+  - component: {fileID: 422822006}
+  - component: {fileID: 422822007}
   m_Layer: 6
   m_Name: Monster1 (1)
   m_TagString: Untagged
@@ -368,7 +407,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -396,13 +435,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeb7be26107a47ee94c3ef4a8019bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  _hp: 0
   damage: 10
   moveSpeed: 3
   detectionRange: 0
   attackRange: 1
   attackDelay: 2
-  curTarget: {fileID: 0}
+  _curTarget: {fileID: 0}
 --- !u!212 &422822004
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -470,6 +509,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &422822006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422822001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 1025187810
+  ObjectInterest: 1
+  Flags: 262145
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 422822003}
+  - {fileID: 422822007}
+--- !u!114 &422822007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422822001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1218,6 +1292,7 @@ GameObject:
   - component: {fileID: 1334812672}
   - component: {fileID: 1334812671}
   - component: {fileID: 1334812670}
+  - component: {fileID: 1334812675}
   m_Layer: 0
   m_Name: Player2
   m_TagString: Untagged
@@ -1299,11 +1374,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd71ec7f45c74d8e81f56537fcf3694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  hp: 100
-  level: 1
-  curExp: 0
-  maxExp: 100
+  _moveSpeed: 5
+  _hp: 100
+  _level: 1
+  _curExp: 0
+  _maxExp: 100
   curWeapon: {fileID: 192333178}
 --- !u!212 &1334812673
 SpriteRenderer:
@@ -1373,6 +1448,22 @@ Transform:
   - {fileID: 192333177}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1334812675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334812669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &1447822139
 GameObject:
   m_ObjectHideFlags: 0
@@ -1712,6 +1803,8 @@ GameObject:
   - component: {fileID: 1643153523}
   - component: {fileID: 1643153522}
   - component: {fileID: 1643153521}
+  - component: {fileID: 1643153525}
+  - component: {fileID: 1643153526}
   m_Layer: 6
   m_Name: Monster1 (2)
   m_TagString: Untagged
@@ -1748,7 +1841,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -1776,13 +1869,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeb7be26107a47ee94c3ef4a8019bc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
+  _hp: 0
   damage: 10
   moveSpeed: 3
   detectionRange: 0
   attackRange: 1
   attackDelay: 2
-  curTarget: {fileID: 0}
+  _curTarget: {fileID: 0}
 --- !u!212 &1643153523
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1850,6 +1943,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1643153525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643153520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1552182283, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SortKey: 2300686966
+  ObjectInterest: 1
+  Flags: 1
+  NestedObjects: []
+  NetworkedBehaviours:
+  - {fileID: 1643153522}
+  - {fileID: 1643153526}
+--- !u!114 &1643153526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643153520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 158639473, guid: e725a070cec140c4caffb81624c8c787, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SyncScale: 0
+  SyncParent: 0
+  _autoAOIOverride: 1
+  DisableSharedModeInterpolation: 0
 --- !u!1 &1648529317
 GameObject:
   m_ObjectHideFlags: 0

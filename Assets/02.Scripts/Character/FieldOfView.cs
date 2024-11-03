@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public class FieldOfView : MonoBehaviour
+public class FieldOfView : NetworkBehaviour
 {
     public float viewRadius;
     [Range(0, 360)]
@@ -60,8 +61,9 @@ public class FieldOfView : MonoBehaviour
 
     void SetTargetRenderer(Transform target, bool isVisible)
     {
-        SpriteRenderer renderer = target.GetComponent<SpriteRenderer>();
+        if (!Object.HasInputAuthority) return;
 
+        SpriteRenderer renderer = target.GetComponent<SpriteRenderer>();
         if (renderer == null) return;
 
         renderer.enabled = isVisible;

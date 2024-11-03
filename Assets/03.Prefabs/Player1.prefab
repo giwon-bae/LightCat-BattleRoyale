@@ -196,11 +196,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdd71ec7f45c74d8e81f56537fcf3694, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  hp: 100
-  level: 1
-  curExp: 0
-  maxExp: 100
+  _moveSpeed: 5
+  _hp: 100
+  _level: 1
+  _curExp: 0
+  _maxExp: 100
   curWeapon: {fileID: 2626257140756562328}
 --- !u!70 &1403452901260386013
 CapsuleCollider2D:
@@ -303,6 +303,7 @@ MonoBehaviour:
   NestedObjects: []
   NetworkedBehaviours:
   - {fileID: 5106627036468683052}
+  - {fileID: 1475999098663895608}
   - {fileID: 4184468980536959346}
 --- !u!114 &4184468980536959346
 MonoBehaviour:

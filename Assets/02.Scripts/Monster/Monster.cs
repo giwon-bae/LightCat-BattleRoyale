@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Fusion;
 
-public abstract class Monster : MonoBehaviour, IAttackable
+[RequireComponent(typeof(NetworkTransform), typeof(Collider2D))]
+public abstract class Monster : NetworkBehaviour, IAttackable
 {
     // stats - hp, moveSpeed, damage
-    public int hp;
+    [Networked] public int hp { get; set; }
     public int damage;
     public float moveSpeed;
     public float detectionRange;
@@ -13,11 +15,13 @@ public abstract class Monster : MonoBehaviour, IAttackable
     public float attackDelay;
     private float _curCoolDown = 0;
 
-    public Character curTarget = null;
+    [Networked] public Character curTarget { get; set; } = null;
 
-    private void Update()
+    public override void FixedUpdateNetwork()
     {
-        if (_curCoolDown > 0) _curCoolDown -= Time.deltaTime;
+        if (!Object.HasStateAuthority) return;
+
+        if (_curCoolDown > 0) _curCoolDown -= Runner.DeltaTime;
 
         FindCharacter();
 
@@ -46,7 +50,7 @@ public abstract class Monster : MonoBehaviour, IAttackable
     public void TakeDamage(int damage)
     {
         hp -= damage;
-        Debug.Log("[Character] Take Damage: " + damage);
+        Debug.Log("[Monster] Take Damage: " + damage);
 
         if (hp <= 0)
         {

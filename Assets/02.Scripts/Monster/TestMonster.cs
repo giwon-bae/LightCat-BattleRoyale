@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestMonster : Monster
 {
-    public TestMonster()
+    public override void Spawned()
     {
         hp = 100;
         damage = 10;

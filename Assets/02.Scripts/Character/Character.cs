@@ -7,29 +7,18 @@ using Fusion;
 public class Character : NetworkBehaviour, IAttackable
 {
     // stats
-    public float moveSpeed = 5f;
-    public int hp = 100;
+    [Networked] public float moveSpeed { get; set; } = 5f;
+    [Networked] public int hp { get; set; } = 100;
 
-    public int level = 1;
-    public int curExp = 0;
-    public int maxExp = 100;
+    [Networked] public int level { get; set; } = 1;
+    [Networked] public int curExp { get; set; } = 0;
+    [Networked] public int maxExp { get; set; } = 100;
 
     public Weapon curWeapon;
     public ISkill curSkill = new TestSkill();
 
     private void Update()
     {
-        //Move();
-
-        //if (Input.GetButton("Fire1"))
-        //{
-        //    Attack();
-        //}
-        //if (Input.GetButton("Fire2"))
-        //{
-        //    Skill();
-        //}
-
         // for test
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -57,9 +46,12 @@ public class Character : NetworkBehaviour, IAttackable
     // Move()
     void Move(Vector2 direction)
     {
-        //Vector2 _moveDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical")).normalized;
+        if (direction == Vector2.zero) return;
 
-        transform.Translate(direction * moveSpeed * Runner.DeltaTime);
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+
+        transform.Translate(Vector2.right * moveSpeed * Runner.DeltaTime);
     }
 
     // EquipWeapon()
