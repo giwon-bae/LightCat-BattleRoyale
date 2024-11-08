@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 using Fusion;
 using Fusion.Sockets;
@@ -13,12 +14,19 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
-    async void StartGame(GameMode mode)
+    private bool _isLobby = false;
+
+    void Awake()
     {
         // Create the Fusion runner and let it know that we will be providing user input
         _runner = gameObject.AddComponent<NetworkRunner>();
         _runner.ProvideInput = true;
 
+        DontDestroyOnLoad(gameObject);
+    }
+
+    async void StartGame(GameMode mode)
+    {
         // Create the NetworkSceneInfo from the current scene
         var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
         var sceneInfo = new NetworkSceneInfo();
@@ -39,7 +47,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private void OnGUI()
     {
-        if (_runner == null)
+        if (_isLobby)
         {
             if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
             {
@@ -49,6 +57,28 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
             {
                 StartGame(GameMode.Client);
             }
+        }
+        else
+        {
+            if (GUI.Button(new Rect(0,0,200,40), "Find Game"))
+            {
+                var joinLobbyTask = JoinLobby();
+            }
+        }
+    }
+
+    private async Task JoinLobby()
+    {
+        var result = await _runner.JoinSessionLobby(SessionLobby.Custom, "TmpLobby");
+
+        if (!result.Ok)
+        {
+            Debug.LogError("Failed to join lobby");
+        }
+        else
+        {
+            Debug.Log("Success to join lobby");
+            _isLobby = true;
         }
     }
 
