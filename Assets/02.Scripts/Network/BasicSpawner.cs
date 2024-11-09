@@ -42,7 +42,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     async Task StartGame(GameMode mode, string sessionName)
     {
         // Create the NetworkSceneInfo from the current scene
-        var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
+        var scene = SceneRef.FromIndex(1);
         var sceneInfo = new NetworkSceneInfo();
         if (scene.IsValid)
         {
