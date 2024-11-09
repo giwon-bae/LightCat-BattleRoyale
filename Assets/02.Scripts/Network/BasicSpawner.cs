@@ -14,7 +14,7 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     [SerializeField] private NetworkPrefabRef _playerPrefab;
     private Dictionary<PlayerRef, NetworkObject> _spawnedCharacters = new Dictionary<PlayerRef, NetworkObject>();
 
-    private bool _isLobby = false;
+    //private bool _isLobby = false;
 
     [SerializeField] private UIManager _uiManager;
 
@@ -27,7 +27,19 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         DontDestroyOnLoad(gameObject);
     }
 
-    async void StartGame(GameMode mode)
+    private void OnEnable()
+    {
+        GameEvents.OnJoinLobbyRequest += HandleJoinLobbyRequest;
+        GameEvents.OnJoinGameRequest += HandleJoinGameRequest;
+    }
+
+    private void OnDisable()
+    {
+        GameEvents.OnJoinLobbyRequest -= HandleJoinLobbyRequest;
+        GameEvents.OnJoinGameRequest -= HandleJoinGameRequest;
+    }
+
+    async Task StartGame(GameMode mode, string sessionName)
     {
         // Create the NetworkSceneInfo from the current scene
         var scene = SceneRef.FromIndex(SceneManager.GetActiveScene().buildIndex);
@@ -38,35 +50,55 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         }
 
         // Start or join (depends on gamemode) a session with a specific name
-        await _runner.StartGame(new StartGameArgs()
+        var result = await _runner.StartGame(new StartGameArgs()
         {
             GameMode = mode,
-            SessionName = "TestRoom",
+            SessionName = sessionName,
             Scene = scene,
             SceneManager = gameObject.AddComponent<NetworkSceneManagerDefault>()
         });
+
+        if (!result.Ok)
+        {
+            Debug.LogError("Failed to start game");
+        }
+        else
+        {
+            Debug.Log("Success to start game");
+            _uiManager.HideAllPanel();
+        }
     }
 
     private void OnGUI()
     {
-        if (_isLobby)
-        {
-            if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
-            {
-                StartGame(GameMode.Host);
-            }
-            if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
-            {
-                StartGame(GameMode.Client);
-            }
-        }
-        else
-        {
-            if (GUI.Button(new Rect(0,0,200,40), "Find Game"))
-            {
-                var joinLobbyTask = JoinLobby();
-            }
-        }
+        //if (_isLobby)
+        //{
+        //    if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
+        //    {
+        //        StartGame(GameMode.Host);
+        //    }
+        //    if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
+        //    {
+        //        StartGame(GameMode.Client);
+        //    }
+        //}
+        //else
+        //{
+        //    if (GUI.Button(new Rect(0,0,200,40), "Find Game"))
+        //    {
+        //        var joinLobbyTask = JoinLobby();
+        //    }
+        //}
+    }
+
+    private async void HandleJoinGameRequest(GameMode mode, string sessionName)
+    {
+        await StartGame(mode, sessionName);
+    }
+
+    private async void HandleJoinLobbyRequest()
+    {
+        await JoinLobby();
     }
 
     private async Task JoinLobby()
@@ -80,10 +112,12 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
         else
         {
             Debug.Log("Success to join lobby");
-            _isLobby = true;
+            //_isLobby = true;
+            _uiManager.ShowSessionListPanel();
         }
     }
 
+    #region INetworkRunnerCallbacks
     public void OnConnectedToServer(NetworkRunner runner) { }
 
     public void OnConnectFailed(NetworkRunner runner, NetAddress remoteAddress, NetConnectFailedReason reason) { }
@@ -149,4 +183,5 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
 
     public void OnUserSimulationMessage(NetworkRunner runner, SimulationMessagePtr message) { }
+    #endregion
 }
