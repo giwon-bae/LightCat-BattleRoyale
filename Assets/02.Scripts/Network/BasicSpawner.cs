@@ -16,6 +16,8 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     private bool _isLobby = false;
 
+    [SerializeField] private UIManager _uiManager;
+
     void Awake()
     {
         // Create the Fusion runner and let it know that we will be providing user input
@@ -140,7 +142,9 @@ public class BasicSpawner : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnSceneLoadStart(NetworkRunner runner) { }
 
-    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) { }
+    public void OnSessionListUpdated(NetworkRunner runner, List<SessionInfo> sessionList) {
+        _uiManager.UpdateSessionList(sessionList);
+    }
 
     public void OnShutdown(NetworkRunner runner, ShutdownReason shutdownReason) { }
 
