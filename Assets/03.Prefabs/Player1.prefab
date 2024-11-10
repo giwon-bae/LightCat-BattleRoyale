@@ -201,6 +201,7 @@ MonoBehaviour:
   _level: 1
   _curExp: 0
   _maxExp: 100
+  _cameraControllerPrefab: {fileID: 8104312925946465831, guid: 4a1f3bc97466b4f96aef960a3086d23b, type: 3}
   curWeapon: {fileID: 2626257140756562328}
 --- !u!70 &1403452901260386013
 CapsuleCollider2D:

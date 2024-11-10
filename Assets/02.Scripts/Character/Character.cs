@@ -14,8 +14,19 @@ public class Character : NetworkBehaviour, IAttackable
     [Networked] public int curExp { get; set; } = 0;
     [Networked] public int maxExp { get; set; } = 100;
 
+    [SerializeField] private CameraController _cameraControllerPrefab;
+
     public Weapon curWeapon;
     public ISkill curSkill = new TestSkill();
+
+    public override void Spawned()
+    {
+        if (Object.HasInputAuthority)
+        {
+            CameraController cameraController = Instantiate(_cameraControllerPrefab);
+            cameraController.SetTarget(transform);
+        }
+    }
 
     private void Update()
     {
