@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3986729062131107699}
   - component: {fileID: 2626257140756562328}
   - component: {fileID: 5908201564698088918}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: MeleeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   - component: {fileID: 1475999098663895608}
   - component: {fileID: 8258957381492547628}
   - component: {fileID: 4184468980536959346}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ MonoBehaviour:
   viewAngle: 65
   targetMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 1088
   obstacleMask:
     serializedVersion: 2
     m_Bits: 128
