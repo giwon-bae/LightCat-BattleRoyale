@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Fusion;
+using TMPro;
 
 [RequireComponent(typeof(NetworkTransform), typeof(Rigidbody2D), typeof(Collider2D))]
 public class Character : NetworkBehaviour, IAttackable
 {
     // stats
     [Networked] public float moveSpeed { get; set; } = 5f;
-    [Networked] public int hp { get; set; } = 100;
+    [Networked] public float hp { get; set; } = 100;
+    [Networked] public float maxHp { get; set; } = 100;
 
-    [Networked] public int level { get; set; } = 1;
+    [Networked] public int level { get; set; } = 2;
     [Networked] public int curExp { get; set; } = 0;
     [Networked] public int maxExp { get; set; } = 100;
 
@@ -19,6 +22,10 @@ public class Character : NetworkBehaviour, IAttackable
     public Weapon curWeapon;
     public ISkill curSkill = new TestSkill();
 
+    [Header("UI")]
+    [SerializeField] private Image _hpBar;
+    [SerializeField] private TMP_Text _levelText;
+
     public override void Spawned()
     {
         if (Object.HasInputAuthority)
@@ -26,6 +33,12 @@ public class Character : NetworkBehaviour, IAttackable
             CameraController cameraController = Instantiate(_cameraControllerPrefab);
             cameraController.SetTarget(transform);
         }
+    }
+
+    private void Start()
+    {
+        UpdateHpBar();
+        UpdateLevelUI();
     }
 
     private void Update()
@@ -92,6 +105,7 @@ public class Character : NetworkBehaviour, IAttackable
     public void TakeDamage(int damage)
     {
         hp -= damage;
+        UpdateHpBar();
         Debug.Log("[Character] Take Damage: " + damage);
         if (hp <= 0)
         {
@@ -114,6 +128,7 @@ public class Character : NetworkBehaviour, IAttackable
         curExp = 0;
         maxExp += level * 100;
         GameManager.Instance.ShowLevelUpUI();
+        UpdateLevelUI();
     }
 
     // Upgrade()
@@ -138,4 +153,20 @@ public class Character : NetworkBehaviour, IAttackable
 
         GameManager.Instance.HideLevelUpUI();
     }
+
+    #region UI
+    private void UpdateHpBar()
+    {
+        if (_hpBar == null) return;
+
+        _hpBar.fillAmount = hp / maxHp;
+    }
+
+    private void UpdateLevelUI()
+    {
+        if (_levelText == null) return;
+
+        _levelText.text = $"Lv.{level}";
+    }
+    #endregion
 }
